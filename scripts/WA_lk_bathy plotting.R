@@ -30,6 +30,16 @@ ggplot() +
   scale_fill_viridis_c(name = "Depth ft", direction = -1) +
   labs(title = lk)
 
+# Plot several lakes
+lks <- c("Loon Lake", "Medical Lake", "Waitts Lake", 
+         "Jumpoff Joe Lake", "Eloika Lake", "Sullivan Lake")
+
+ggplot(filter(Lk_poly, GNIS_Name %in% lks)) +
+  geom_sf(aes(fill = LO_DEPTH_QT_FT)) +
+  scale_fill_viridis_c(name = "Depth ft", direction = -1) +
+  facet_wrap(~GNIS_Name) +
+  coord_sf()
+
 library(stars)
 lk1 <- st_transform(filter(Lk_poly, GNIS_Name == lk), st_crs(Lk_bath))
 
